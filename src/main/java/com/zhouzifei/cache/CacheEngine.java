@@ -26,6 +26,8 @@ public interface CacheEngine {
 	 */
 	public  Object get(String folderName, Serializable key);
 	public  Object get(Serializable key);
+	public  <T> T get(String folderName, Serializable key,Class<?> s);
+	public  <T> T get(Serializable key,Class<?> s);
 	/**
 	 * 删除缓存
 	 * @param folderName

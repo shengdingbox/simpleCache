@@ -1,5 +1,6 @@
 package com.zhouzifei.cache;
 
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.zhouzifei.cache.common.SerializationUtils;
 import com.zhouzifei.cache.util.FileManager;
 
@@ -52,6 +53,30 @@ public class FileCacheEngine implements CacheEngine {
 	@Override
 	public Object get( Serializable key) {		
 		return get(FOLDER_NAME, key);
+	}
+
+	@Override
+	public <T> T get(String folderName, Serializable key,Class<?> s) {
+		final Object o = get(folderName,key);
+		if(null == o){
+			return null;
+		}
+		if(s.isInstance(o)){
+			return (T) s.cast(o);
+		}
+		return null;
+	}
+
+	@Override
+	public <T> T get(Serializable key, Class<?> s) {
+		final Object o = get(key);
+		if(null == o){
+			return null;
+		}
+		if(s.isInstance(o)){
+			return (T) s.cast(o);
+		}
+		return null;
 	}
 
 	@Override
