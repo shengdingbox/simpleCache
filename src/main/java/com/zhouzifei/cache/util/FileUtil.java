@@ -89,9 +89,7 @@ public class FileUtil {
             while((n = is.read(b)) != -1) {
                 output.write(b, 0, n);
             }
-
-            byte[] var4 = output.toByteArray();
-            return var4;
+            return output.toByteArray();
         } finally {
             output.close();
         }

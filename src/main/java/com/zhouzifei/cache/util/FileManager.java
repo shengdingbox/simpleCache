@@ -17,13 +17,13 @@ import java.util.Arrays;
 public class FileManager {
 	private static final String CacheName = "default";
 	private static final String Cache= System.getProperty("user.home") + "/fileCache";
-	private static final File directory = new File(Cache);
+	private static final File DIRECTORY = new File(Cache);
 	/**
 	 * 初始化
 	 */
 	public void init(){	
-		if(!directory.isDirectory()) {
-			directory.mkdir();
+		if(!DIRECTORY.isDirectory()) {
+			DIRECTORY.mkdir();
 		}
 	}
 	/**
@@ -32,7 +32,7 @@ public class FileManager {
 	 */
 	public void close() throws IOException
 	{	
-		if(directory.isDirectory()) {
+		if(DIRECTORY.isDirectory()) {
 			FileUtil.deleteFiles(Cache,1);
 		}
 	}
@@ -45,7 +45,7 @@ public class FileManager {
 	 * @throws IOException
 	 */
 	public void add(String cacheName, Serializable key, byte[] data) throws IOException {
-		File file=new File(directory, cacheName+File.separator+key.toString());
+		File file=new File(DIRECTORY, cacheName+File.separator+key.toString());
 		FileUtil.writeByteArrayToFile(file, data);
 	}
 	public void add(Serializable key, byte[] data) throws IOException {
@@ -60,7 +60,7 @@ public class FileManager {
 	 * @throws IOException
 	 */
 	public byte[]  get(String cacheName, Serializable key) throws IOException {
-		File file=new File(directory, cacheName+File.separator+key.toString());
+		File file=new File(DIRECTORY, cacheName+File.separator+key.toString());
 		if(!file.isFile()) {
 			return null;
 		}
@@ -76,7 +76,7 @@ public class FileManager {
 	 * @param key
 	 */
 	public void remove(String cacheName, Serializable key) {
-		File file=new File(directory, cacheName+File.separator+key.toString());
+		File file=new File(DIRECTORY, cacheName+File.separator+key.toString());
 		if(file.isFile()) {
 			final boolean delete = file.delete();
 		}
@@ -92,7 +92,7 @@ public class FileManager {
 	 */
 	public void clear(String cacheName) throws IOException
 	{
-		File file=new File(directory, cacheName);
+		File file=new File(DIRECTORY, cacheName);
 		if(file.isDirectory()) {
 			FileUtil.deleteFiles(Cache,1);
 		}
@@ -102,11 +102,11 @@ public class FileManager {
 		clear(CacheName);
 	}
 	public File[] getList(String cacheName){
-		File file=new File(directory, cacheName);
+		File file=new File(DIRECTORY, cacheName);
 		return file.listFiles();
 	}
 	public File[] getList(){
-		return directory.listFiles();
+		return DIRECTORY.listFiles();
 	}
 	public static void main(String[] args) {
 		final FileCacheEngine fileCacheEngine = new FileCacheEngine();

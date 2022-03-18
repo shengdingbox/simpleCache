@@ -27,7 +27,7 @@ public class JavaSerializer implements Serializer {
 			if(oos != null) {
 				try {
 					oos.close();
-				} catch (IOException e) {}
+				} catch (IOException ignored) {}
 			}
 		}
 	}
